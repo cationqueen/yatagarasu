@@ -1,0 +1,526 @@
+<!-- #index.html(YATAGARASU)# -->
+
+<!-- やる内容（具体）
+index.html をアップロード
+
+Settings → Pages → Deploy from main
+
+公開URLを取得 -->
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Yatagarasu – Holy Crow Leading</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="奇門遁甲 × 心理学 × スピリチュアル × 実質的な行動アドバイスで、日々の出来事や象意から人生の流れを読み解く『Yatagarasu – Holy Crow Leading』の公式サイト。" />
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.7;
+      background-color: #f5f5f5;
+      color: #222;
+    }
+
+    /* ── ヘッダー（背景画像＋オーバーレイ） ── */
+    header {
+      position: relative;
+      color: #f5f5f5;
+      padding: 2.5rem 1rem 1.5rem;
+      overflow: hidden;
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url('トップ画像.png') no-repeat center center;
+      background-size: cover;
+      z-index: -2;
+    }
+    /* 文字を読みやすくする半透明の黒幕 */
+    header::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.6rem;
+      letter-spacing: 0.08em;
+    }
+    header p {
+      margin: 0.6rem 0 0;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+    nav {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+    nav a {
+      color: #f5f5f5;
+      text-decoration: none;
+      margin-right: 1rem;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      padding: 2rem 0 3rem;
+    }
+    section {
+      margin-bottom: 2.5rem;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+    }
+    section h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      border-left: 4px solid #333;
+      padding-left: 0.5rem;
+    }
+    section h3 {
+      margin-top: 1.2rem;
+      font-size: 1.05rem;
+    }
+    section h4 {
+      margin-top: 1rem;
+      font-size: 1rem;
+    }
+    .hero-title {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+    }
+    .hero-sub {
+      font-size: 0.95rem;
+      color: #555;
+    }
+    ul {
+      padding-left: 1.2rem;
+    }
+    .note {
+      font-size: 0.85rem;
+      color: #666;
+    }
+    label {
+      display: block;
+      font-size: 0.9rem;
+      margin-top: 0.8rem;
+    }
+    textarea, input[type="text"], input[type="email"] {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 999px;
+      border: none;
+      background: #111;
+      color: #fff;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    button:hover {
+      opacity: 0.7;
+    }
+    footer {
+      font-size: 0.8rem;
+      text-align: center;
+      padding: 1rem 0 2rem;
+      color: #777;
+    }
+
+    /* スマホ向けの少し小さいヘッダー調整 */
+    @media (max-width: 600px) {
+      header {
+        padding: 2rem 1rem 1.2rem;
+      }
+      header h1 {
+        font-size: 1.3rem;
+      }
+      header p {
+        font-size: 0.8rem;
+      }
+      nav {
+        font-size: 0.8rem;
+        line-height: 1.8;
+      }
+    }
+    .cta-wrap{
+      margin-top:1.5rem;
+    }
+    .cta-button{
+      display: inline-block;
+      padding: 0.7rem 1.6rem;
+      border-radius: 999px;
+      background: #111;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    .cta-button:hover{
+      opacity: 0.9;
+    }        
+  
+  </style>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const links = document.querySelectorAll('a[href^="#"]');
+    links.forEach(link => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute("href"));
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    });
+    const btn = document.getElementById("sendBtn");
+    const result = document.getElementById("sendResult");
+
+    if (btn && result){
+      btn.addEventListener("click", () => {
+        const name = document.querySelector('input[name="name"]').value.trim();
+        const email = document.querySelector('input[name="email"]').value.trim();
+
+        if (!name) {
+          result.textContent = "お名前を入力してください";
+          return;
+       }
+        if (!email) {
+          result.textContent = "メールアドレスを入力してください";
+          return;
+        }
+
+        result.textContent = "送信を受け付けました（※このページ内の表示のみ）";
+      });
+    }
+  });
+  </script>
+
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <h1>Yatagarasu – Holy Crow Leading</h1>
+      <p>奇門遁甲 × 心理学 × スピリチュアル × 実質的アドバイスで「流れ」と「一歩先」の指針を届ける。</p>
+      <nav>
+        <a href="#top">トップ</a>
+        <a href="#service">サービス紹介</a>
+        <a href="#sample">鑑定サンプル</a>
+        <a href="#contact">問い合わせ・申し込み</a>
+        <a href="#ai-chat">AIチャット（構想）</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- トップ -->
+    <section id="top">
+      <div class="hero-title">ヤタガラス：聖なる鴉の導き</div>
+      <p class="hero-sub">
+        日々の出来事、天気、出会い、登山で見た景色──<br>
+        それらはすべて「今のあなたの流れ」を教えてくれるサインです。<br>
+        Yatagarasu は、奇門遁甲と心理学、スピリチュアルな象意と実生活で使える行動をつなぎ、
+        <strong>「世界」と「あなた」と「日常」を少しずつ平和な方向へ調整していくための場</strong>です。
+      </p>
+      <p class="note">
+        このサイトでは、出来事の「意味」を整理し、今日できる行動を一つに絞って示します。
+      </p>
+      <p class="note">ここは、出来事の"意味"を現実の行動に変える場所です。</p>
+      <div class="note">
+        <strong>このサイトの使い方</strong><br>
+        ① 最近の出来事を、思い出しながら読む<br>
+        ② 象意や解釈を「自分の状況」に重ねる<br>
+        ③ 今日できる小さな行動を一つ決める
+      </div>
+      <p class="note">
+      <strong>今日の一歩（例）</strong><br>
+      今日は「言葉で整えようとせず、行動で一つだけ整える」ことを意識してみてください。
+      </p>
+
+
+      <div class="cta-wrap">
+        <a href="#service" class="cta-button">まずはサービス概要を読む</a>
+      </div>
+
+    </section>
+
+    <!-- サービス紹介 -->
+    <section id="service">
+      <h2>サービス紹介（Yatagarasu 鑑定）</h2>
+
+      <h3>【Yatagarasu – Holy Crow Leading】奇門遁甲 × 心理 × 象意 × 行動の総合鑑定</h3>
+
+      <h3>■このサービスについて</h3>
+      <p>
+        自然の兆し、日々の出来事、あなたがふと感じた違和感、出会った動物や天候の変化──<br>
+        それらはすべて <strong>“今のあなたの流れを示すサイン（象意）”</strong> です。
+      </p>
+      <p>
+        本サービスでは、奇門遁甲の方位・日盤、自然の象意、心理学的分析、そして“現実的な行動指針”を統合し、
+      </p>
+      <blockquote>
+        「今のあなたに必要な流れ」<br>
+        「今日・今後どう動くべきか」
+      </blockquote>
+      <p>
+        を明確にお伝えします。
+      </p>
+      <p>
+        鑑定名の「Yatagarasu」は、古来より“迷いの時に道を示す存在”。<br>
+        あなたの行動の道標として、誠実に、現実に寄り添って鑑定します。
+      </p>
+
+      <h3>■こんな方におすすめ</h3>
+      <ul>
+        <li>今の流れが良いのか悪いのか見えない</li>
+        <li>最近起きた出来事の“意味”が知りたい</li>
+        <li>動物・天気・自然のサインを活かしたい</li>
+        <li>仕事・転職・在宅ワークで迷っている</li>
+        <li>人間関係（家族・夫婦）の空気を読みたい</li>
+        <li>奇門遁甲を実生活に落とし込みたい</li>
+        <li>占いと現実的アドバイス“両方”欲しい</li>
+      </ul>
+
+      <h3>■鑑定内容（奇門 × 心理 × 象徴 × 行動）</h3>
+
+      <h4>▼① 奇門遁甲（方位・日盤・象意）</h4>
+      <ul>
+        <li>吉凶の流れ</li>
+        <li>天盤星・八門の読み</li>
+        <li>あなたの状況に応じた“運の流れ方”</li>
+      </ul>
+
+      <h4>▼② 象意リーディング（自然・動物・天気など）</h4>
+      <ul>
+        <li>鳥</li>
+        <li>雲・光・風の変化</li>
+        <li>登山・旅での出来事</li>
+        <li>人との偶然の出会い</li>
+      </ul>
+      <p>
+        これらの出来事・自然サインを総合して読み解き、今のあなたの流れを分析します。
+      </p>
+
+      <h4>▼③ 心理学（思考の癖・行動の原因）</h4>
+      <ul>
+        <li>習慣のズレ</li>
+        <li>ストレスの方向性</li>
+        <li>対人関係の“裏テーマ”</li>
+        <li>行動しづらい原因を解明</li>
+      </ul>
+
+      <h4>▼④ 実際の行動アドバイス</h4>
+      <ul>
+        <li>今日やるべきこと</li>
+        <li>1週間の行動の流れ</li>
+        <li>転職／在宅ワークの現実的助言</li>
+        <li>夫婦関係の空気の扱い方</li>
+        <li>健康・生活改善の方向性</li>
+      </ul>
+
+      <h3>■料金プラン</h3>
+      <h4>🔹ライト鑑定（2,000〜3,000円）</h4>
+      <p>「今の流れ」「今日/今週の指針」だけ知りたい方へ。</p>
+
+      <h4>🔹総合鑑定（4,000〜6,000円）</h4>
+      <p>奇門 × 心理 × 象徴 × 行動を統合した標準版。</p>
+
+      <h4>🔹深層鑑定（10,000〜15,000円）</h4>
+      <p>過去〜現在〜未来の流れを“物語”として読み解く。PDF形式の鑑定書にも対応。</p>
+
+      <h3>■鑑定の流れ</h3>
+      <ol>
+        <li>ご相談内容をメッセージでお送りください</li>
+        <li>必要な象意（出来事・動物・天気など）もご記入ください</li>
+        <li>奇門・象意・心理・行動の4象限で鑑定</li>
+        <li>あなたの流れに合わせた“行動プラン”を提示</li>
+        <li>必要であればフォロー質問も可能</li>
+      </ol>
+
+      <h3>■鑑定者プロフィール</h3>
+      <p>
+        <strong>Yatagarasu – Holy Crow Leading –</strong><br>
+        ヤタガラス：聖なる鴉の導き
+      </p>
+      <p>
+        奇門遁甲を実践しながら、自然・登山・旅で起きる“象意（サイン）”を十年以上読み続けてきました。
+      </p>
+      <p>
+        象意の原点は、ある日ふと現れた「カラス」。そこから、雲・光・動物・天気…日常の出来事が“意味”を持っていることに気づきました。
+      </p>
+      <p>
+        奇門遁甲の流れ、心理学・行動科学をベースにした思考の分析、スピリチュアルな象徴、そして現実的な行動指針。
+      </p>
+      <p>
+        これらを全て統合し、<br>
+        <strong>あなたが「今どこに立っているのか」「これからどこへ向かうのか」</strong><br>
+        を明確にお伝えします。
+      </p>
+      <p>
+        あなたの流れが前へ動く一助になれば幸いです。
+      </p>
+    </section>
+
+    <!-- 鑑定サンプル -->
+    <section id="sample">
+      <h2>鑑定サンプル（Aさんのケース）</h2>
+      <p class="note">
+        この鑑定サンプルでは、「日常の出来事をどう読み、どう行動に変えるか」を具体例で示します。
+      </p>
+
+
+      <h3>■ご相談内容（出来事）</h3>
+      <p>
+        夫婦喧嘩の翌日、登山の帰り道での出来事です。<br>
+        Aさんの奥さまの脚に大きな蜘蛛がついているのに気づき、<br>
+        Aさんがそれをそっと取ってあげました。<br>
+        静かな山道での出来事で、「蜘蛛の大きさ」と「取ってあげた行為」が強く印象に残っているとのことでした。
+      </p>
+
+      <h3>■象意の読み（自然のサインとしての蜘蛛）</h3>
+      <p>
+        蜘蛛は象意として、<strong>「絡まった縁」「張りついたストレス」「解くべき感情」</strong>を表します。<br>
+        特に「大きな蜘蛛」は、感情のしこりやわだかまりが決して小さくなかったことを示しています。
+      </p>
+      <p>
+        それが奥さまの<strong>脚（行動・歩み）</strong>についていたということは、<br>
+        夫婦喧嘩で生じた感情のしこりが、お二人の「これからの歩み」に影響を与えかねない状況だった、というサインと読めます。
+      </p>
+      <p>
+        しかし、その蜘蛛を<strong>Aさん自身が取ってあげた</strong>という行動は、<br>
+        奇門遁甲的に言えば、<strong>「障害物を取り除き、気の流れを戻す」</strong>象意そのものです。<br>
+        自然は、夫婦の間に生じた絡まりを、物理的な出来事として目の前に見せ、<br>
+        Aさんの手によってそれを解消させた、と読むことができます。
+      </p>
+
+      <h3>■心理学的な解釈</h3>
+      <p>
+        喧嘩の「翌日」というタイミングも象徴的です。<br>
+        心理学的には、言葉で謝る・話し合うことも大切ですが、<br>
+        実は<strong>「具体的な行動によるケア」</strong>のほうが、相手の心に安心感として残りやすいことが分かっています。
+      </p>
+      <p>
+        奥さまの脚についた蜘蛛＝<strong>「奥さまの行動領域に入り込んだストレス」</strong>、<br>
+        それをAさんがそっと取る＝<strong>「相手の不安や負担を引き受ける行動」</strong>。<br>
+        無意識レベルで、関係修復の方向へ舵を切る、とても優しい行動だったと言えます。
+      </p>
+
+      <h3>■スピリチュアルな流れ</h3>
+      <p>
+        スピリチュアルな観点では、蜘蛛は「縁」「ネットワーク」「結びつき」を扱う存在でもあります。<br>
+        喧嘩という形で一度「縁の糸」がきしんだあと、<br>
+        大きな蜘蛛が現れ、それをAさんが取り除いたという流れは、
+      </p>
+      <p>
+        <strong>「問題を表に出して見せ、解消のきっかけを渡してくれた」</strong><br>
+        という、自然からのサポートとも読めます。
+      </p>
+      <p>
+        この象意から見ると、<strong>流れはすでに『分断』から『和合・再統合』の方向へ動き始めている</strong>、<br>
+        というメッセージ性が非常に強い場面です。
+      </p>
+
+      <h3>■Aさんへの行動アドバイス</h3>
+      <p>
+        この出来事は、Aさんがすでに「歩みを妨げるものを取り除く役割」を果たし始めているサインです。<br>
+        ここから数日〜1週間ほどは、次のようなスタンスが有効です。
+      </p>
+      <ul>
+        <li>重い話し合いよりも、日常の小さな気遣い・手助けを意識する</li>
+        <li>奥さまが不安そうにしている場面で、さっと動く・助ける行動を続ける</li>
+        <li>もう一度、どこか自然の多い場所へ一緒に出かける（散歩や短い登山でも可）</li>
+      </ul>
+      <p>
+        蜘蛛が脚から離れたように、Aさんのさりげない行動が、今後の夫婦の「歩み」を軽くしていきます。<br>
+        すでに流れは、<strong>“喧嘩の翌日”から“関係を整える段階”へと進み始めている</strong>と見て良いでしょう。
+      </p>
+      <h3>■この鑑定サンプルから分かること</h3>
+      <ul>
+        <li>日常の小さな出来事は、今の人間関係や流れを映す「象意」として現れる</li>
+        <li>言葉よりも、さりげない行動が関係修復の鍵になる場面がある</li>
+        <li>象意を読み取ることで、「次にどう動けばよいか」が自然に見えてくる</li>
+      </ul>
+
+    </section>
+
+    <!-- 問い合わせ／申し込み -->
+    <section id="contact">
+      <h2>問い合わせ・申し込み</h2>
+      <p>
+        鑑定のご相談・ご質問は、以下のフォームの「仮レイアウト」をベースに今後整えていきます。<br>
+        現時点では送信は動きませんが、入力項目のイメージをつかむためのものです。
+      </p>
+
+      <form>
+        <label>お名前（ニックネーム可）</label>
+        <input type="text" name="name" placeholder="例：ヤタさん">
+
+        <label>メールアドレス</label>
+        <input type="email" name="email" placeholder="返信用のメールアドレス">
+
+        <label>最近の1日のスケジュール・出来事</label>
+        <textarea name="schedule" rows="6" placeholder="できる範囲で構いません。&#10;・起床時間・就寝時間&#10;・その日にあった出来事&#10;・移動方位（ざっくり 東西南北 程度でもOK）&#10;・印象に残った風景・天気・動物など"></textarea>
+
+        <label>今一番相談したいこと</label>
+        <textarea name="message" rows="5" placeholder="仕事・在宅ワーク・人間関係・体調など、気になっていることを自由にお書きください。"></textarea>
+
+        <button type="button" id="sendBtn">（サンプル）送信ボタン</button>
+        <p id="sendResult" class="note"></p>
+      </form>
+
+      <p class="note">
+        ※現時点では送信は行われず、このページ内にメッセージ表示のみ行います。<br>
+        ※将来的に、ここからの入力内容をバックエンド経由で ChatGPT API と連携し、<br>
+        　「Yatagarasu 鑑定用の下書き」を自動生成 → あなたが仕上げる、という流れを目指します。
+      </p>
+    </section>
+
+    <!-- 将来的なAIチャットページ（構想） -->
+    <section id="ai-chat">
+      <h2>将来的な AI チャットページ（構想メモ）</h2>
+      <p>
+        将来的には、このサイト内に「Yatagarasu Bot」のような形で、
+        ChatGPT API と連携した半自動鑑定ページを設ける構想です。
+      </p>
+      <ul>
+        <li>1日のスケジュール（出来事・時間・移動方位・見たこと・感じたこと等）をできる範囲で入力</li>
+        <li>AI が「象意の整理」や「考えるヒント」をテキストで返す</li>
+        <li>その結果をもとに、最終的な鑑定はあなたが仕上げる</li>
+      </ul>
+      <p class="note">
+        ※ここは開発メモとして残しておき、プログラミング学習（Web・API連携・AI活用）の題材として育てていきます。
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    © Yatagarasu – Holy Crow Leading
+  </footer>
+</body>
+</html>
+
+<!-- 以上#index.html(YATAGARASU)# -->
