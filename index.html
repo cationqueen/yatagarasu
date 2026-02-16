@@ -201,6 +201,8 @@
 
   <script>
   document.addEventListener("DOMContentLoaded", () => {
+
+    // --- スムーススクロール ---
     const links = document.querySelectorAll('a[href^="#"]');
     links.forEach(link => {
       link.addEventListener("click", (e) => {
@@ -211,6 +213,8 @@
         }
       });
     });
+
+    // --- 送信ボタン（サンプル表示） ---
     const btn = document.getElementById("sendBtn");
     const result = document.getElementById("sendResult");
 
@@ -222,7 +226,7 @@
         if (!name) {
           result.textContent = "お名前を入力してください";
           return;
-       }
+        }
         if (!email) {
           result.textContent = "メールアドレスを入力してください";
           return;
@@ -231,33 +235,29 @@
         result.textContent = "送信を受け付けました（※このページ内の表示のみ）";
       });
     }
-  });
 
-document.addEventListener("DOMContentLoaded", () => {
+    // --- クリック計測（簡易） ---
+    const KEY = "yatagarasu_coconala_clicks";
+    const counterEl = document.getElementById("cocoClicks");
 
-  // 既存処理（スムーススクロール等）はそのまま…
+    // ※ utm が付いても動くように「coconala.com/services/3956683」を含むリンクを拾う
+    const cocoLinks = document.querySelectorAll('a[href*="coconala.com/services/3956683"]');
 
-  // --- クリック計測（簡易） ---
-  const KEY = "yatagarasu_coconala_clicks";
-  const counterEl = document.getElementById("cocoClicks");
-  const cocoLinks = document.querySelectorAll('a[href*="coconala.com/services/3956683"]');
+    const get = () => Number(localStorage.getItem(KEY) || "0");
+    const set = (v) => localStorage.setItem(KEY, String(v));
 
-  const get = () => Number(localStorage.getItem(KEY) || "0");
-  const set = (v) => localStorage.setItem(KEY, String(v));
+    if (counterEl) counterEl.textContent = String(get());
 
-  if (counterEl) counterEl.textContent = String(get());
-
-  cocoLinks.forEach(a => {
-    a.addEventListener("click", () => {
-      const v = get() + 1;
-      set(v);
-      if (counterEl) counterEl.textContent = String(v);
+    cocoLinks.forEach(a => {
+      a.addEventListener("click", () => {
+        const v = get() + 1;
+        set(v);
+        if (counterEl) counterEl.textContent = String(v);
+      });
     });
+
   });
-
-});
-</script>
-
+  </script>
 </head>
 
 <body>
@@ -597,6 +597,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 <!-- 以上#index.html(YATAGARASU)# -->
+
 
 
 
